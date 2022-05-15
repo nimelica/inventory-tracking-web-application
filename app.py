@@ -1,13 +1,25 @@
-from flask import Flask, render_template
+import sqlite3
+import random
+from flask import Flask, session, render_template, request, g
 
-# creating our flask app
 app = Flask(__name__)
+app.secret_key = "CooKIEmONSter123xy0&!#usL*txGha_bsnSb72shjkshME42"
 
-@app.route('/')
-def Index():
-    return render_template("index.html")
+@app.route("/")
+def index():
+    return "<h1>This is My Starter App</h1>"
 
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect('inventory_list.db')
+    return db
 
-# run our app in debug mode
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
+if __name__ == '__main__':
+    app.run()
