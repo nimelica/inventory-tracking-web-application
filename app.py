@@ -11,23 +11,27 @@ def index():
 
 @app.route("/view")
 def get_list_of_inventories():
-    all_items = get_db()
-    print("View a list of Inventory Items")
     # returning a python list to view all the inventory items in our database
-    return str(all_items)
-
-# an helper function to be able to access the raw data of our database
-def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        db = g._database = sqlite3.connect('inventory_list.db')
+        db = g._database = sqlite3.connect('products.db')
         cursor = db.cursor()
         # groceries is the table name of our inventory_list database
-        cursor.execute("select name from groceries")
+        cursor.execute("SELECT name FROM Item")
         all_data = cursor.fetchall()
         # only get the string portion of the values in the database
         all_data = [str(val[0]) for val in all_data]
-    return all_data
+    return (str(all_data))
+
+
+@app.route("/add", methods=["POST"])
+def add_item():
+    pass
+
+@app.route("/edit", methods=["PUT"])
+def edit_item():
+    pass
+
 
 @app.teardown_appcontext
 def close_connection(exception):
