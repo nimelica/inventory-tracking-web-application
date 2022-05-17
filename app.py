@@ -1,78 +1,82 @@
 import sqlite3
-from flask import Flask, jsonify, request, g
-from inventory_list import all_items 
 
-app = Flask(__name__)
-app.secret_key = "CooKIEmONSter123xy0&!#usL*txGha_bsnSb72shjkshME42"
+class Inventory_Manager:
+    def __init__(self):
+        pass
 
-@app.route("/")
-def index():
-    return "SHOPIFY BACKEND CHALLENGE"
-
-
-print(all_items)
-
-
-@app.route("/products")
-def get_list_of_inventories():
-    # returning a python list to view all the inventory items in our database
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = sqlite3.connect('products.db')
+    def get_db_cursor(self):
+        db = sqlite3.connect('products.db')
         cursor = db.cursor()
-        # groceries is the table name of our inventory_list database
-        cursor.execute("SELECT name FROM Item")
-        all_data = cursor.fetchall()
+        return cursor
+
+    def create_item(self, new_item):
+        command = "INSERT INTO Item (category,name,price,location) VALUES (%s , %s, %s, %s)"
+        cursor = self.get_db_cursor()
+        try:
+            cursor.execute(command, new_item)
+        except Exception as e:
+            return e
+        return cursor.lastrowid
+
+    def edit_item(self, name, info):
+        command = "UPDATE Item SET category = %s ,name = %s, price = %s, location = %s WHERE name = {}".format(name)
+        row = (info[0], info[1], info[2])
+        cursor = self.get_db_cursor()
+        try:
+            cursor.execute(command, row)
+        except Exception as e:
+            return e
+
+    def deletion_message(self):
+        com_db = sqlite3.connect('comments.db')
+        com_cursor = com_db.cursor()
+        user_name = input('Please enter your name: ' )
+        message = input('You can enter your comment: ')
+        command = "INSERT INTO Comment (user_name, message) VALUES (%s , %s)"
+        input_db = (user_name, message)
+        com_cursor.execute(command, input_db)
+
+
+    def delete_item(self, name):
+        command = "DELETE FROM Item WHERE name = {}".format(name)
+        cursor = self.get_db_cursor()
+        try:
+            cursor.execute(command)
+        except Exception as e:
+            return e
+        prompt = input('Do you want to leave a message Y/N: ')
+        if prompt is 'N':
+            return ("Item deleted successfully!")
+        elif prompt is 'Y':
+            self.deletion_message()
+
+
+    def view_item_names(self):
+        # returning a python list to view all the inventory items in our database
+        cursor = self.get_db_cursor()
+        try:
+            cursor.execute("SELECT name FROM Item")
+            all_data = cursor.fetchall()
+        except Exception as e:
+            return e
         # only get the string portion of the values in the database
         all_data = [str(val[0]) for val in all_data]
-    return (str(all_data))
+        print('View the inventory item names')
+        for data in all_data:
+            print(data)
 
+    def view_all_items(self):
+        cursor = self.get_db_cursor()
+        try:
+            cursor.execute("SELECT * FROM Item")
+            result = cursor.fetchall()
+        except Exception as e:
+            return e
+        return result
 
-@app.route("/products", methods=["POST"])
-def add_item():
-    new_product = {
-        'category': request.json['category'],
-        'name': request.json['name'],
-        'price': request.json['price'],
-        'location': request.json['location']
-    }
-    all_items.append(new_product)
-    message = 'added ' + str(new_product)
-    return message
+def main():
+   im = Inventory_Manager()
+   im.get_list_of_inventories()
 
-# Update Data Route
-@app.route('/products/<string:product_name>', methods=['PUT'])
-def editProduct(product_name):
-    productsFound = [product for product in all_items if product['name'] == product_name]
-    if (len(productsFound) > 0):
-        productsFound[0]['category'] = request.json['category']
-        productsFound[0]['name'] = request.json['name']
-        productsFound[0]['price'] = request.json['price']
-        productsFound[0]['location'] = request.json['location']
-        return jsonify({
-            'message': 'Product Updated',
-            'product': productsFound[0]
-        })
-    return jsonify({'message': 'Product Not found'})
-
-# DELETE Data Route
-@app.route('/products/<string:product_name>', methods=['DELETE'])
-def deleteProduct(product_name):
-    productsFound = [product for product in all_items if product['name'] == product_name]
-    if len(productsFound) > 0:
-        all_items.remove(productsFound[0])
-        return jsonify({
-            'message': 'Product Deleted',
-            'products': all_items
-        })
-
-
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
-
-
-if __name__ == '__main__':
-    app.run(debug=True, port=4000)
+if __name__ == "__main__":
+    main()
