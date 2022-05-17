@@ -1,6 +1,6 @@
 {
 "products" : [
-    {
+  {
     "category": "Biscuit",
     "name": "Oreo",
     "price": 10.0,

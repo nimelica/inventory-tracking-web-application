@@ -23,7 +23,7 @@ all_items = data['products']
 for i in range(len(all_items)):
     product = all_items[i]
     cursor.execute("INSERT INTO Item VALUES (?, ?, ?, ?)", (product['category'], product['name'], product['price'], product['location']))
-    print('added', product)
+    # print('added', product)
 
 # Do not forget to save (commit) and close the database connection
 connection.commit()
