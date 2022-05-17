@@ -1,78 +1,30 @@
-import sqlite3
+import sqlite3, json
 
-groceries = [
-  "apples",
-  "bananas",
-  "clemintines",
-  "dill",
-  "eggs",
-  "flour",
-  "granola",
-  "honey",
-  "ice cream",
-  "juice",
-  "ketchup",
-  "lemon",
-  "margarine",
-  "onion",
-  "potatoes",
-  "rosmary",
-  "salt",
-  "thyme",
-  "vinegar",
-  "watermelon",
-  "pears",
-  "cucumbers",
-  "garlic",
-  "carrots",
-  "pastries",
-  "eggplants",
-  "milk",
-  "coffee",
-  "tea",
-  "rice",
-  "noodles",
-  "lentils",
-  "sweet potatoes",
-  "strawberries",
-  "cranberries",
-  "mangos",
-  "pappers",
-  "zuccinis",
-  "lime",
-  "broth",
-  "mushrooms",
-  "chicken",
-  "beef",
-  "pork",
-  "fish",
-  "cream",
-  "paprika",
-  "tumeric",
-  "cinamon",
-  "pumpkin",
-  "basil",
-  "tomatoes",
-  "bread",
-  "cake",
-  "chocolate",
-  "gum",
-  "pinapple",
-  "oranges",
-  "lettuce",
-  "cheese",
-  "cilantro"
-]
+# read json data into a list
+with open('products.json') as f:
+    data = json.load(f)
 
-groceries = sorted(groceries)
+# Create an empty database 
+connection = sqlite3.connect('products.db')
 
-connection = sqlite3.connect("inventory_list.db")
+# communication with database via cursor with SQL commands
 cursor = connection.cursor()
 
-cursor.execute("create table groceries (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)")
-for i in range(len(groceries)):
-  cursor.execute("insert into groceries (name) values (?)",[groceries[i]])
-  # print("added ", groceries[i])
+# be sure table is not already exists
+cursor.execute('DROP TABLE IF EXISTS Item')
 
+# create a table named "Items" in "products.db" database
+cursor.execute('CREATE TABLE Item (category TEXT, name TEXT, price REAL, location TEXT)')
+
+all_items = data['products']
+
+# fill the Item table
+for i in range(len(all_items)):
+    product = all_items[i]
+    print(product)
+    cursor.execute("INSERT INTO Item VALUES (?, ?, ?, ?)", (product['category'], product['name'], product['price'], product['location']))
+
+# Do not forget to save (commit) and close the database connection
 connection.commit()
 connection.close()
+

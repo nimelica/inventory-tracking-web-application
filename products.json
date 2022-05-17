@@ -1,0 +1,118 @@
+{
+"products" : [
+    {
+    "category": "Biscuit",
+    "name": "Oreo",
+    "price": 10.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Chocolate",
+    "name": "KitKat",
+    "price": 10.0,
+    "location": "Austin,Texas"
+  },
+  {
+    "category": "Drinks",
+    "name": "Water",
+    "price": 20.0,
+    "location": "San Antanio,Texas"
+  },
+  {
+    "category": "Snacks",
+    "name": "Lays",
+    "price": 10.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Soap",
+    "name": "Lux",
+    "price": 25.0,
+    "location": "Sunny Ville,CA"
+  },
+  {
+    "category": "Fruits",
+    "name": "Mango",
+    "price": 80.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Drinks",
+    "name": "Starbucks Roasted Coffee Beans",
+    "price": 65.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Chocolate",
+    "name": "Godiva",
+    "price": 5.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Drinks",
+    "name": "Coca Cola",
+    "price": 15.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Flour",
+    "name": "All Purpose Flour",
+    "price": 55.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Vegetable",
+    "name": "Onions",
+    "price": 46.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Make-Up",
+    "name": "Lip Gloss",
+    "price": 8.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Parfume",
+    "name": "Victoria Secret",
+    "price": 10.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Dairy",
+    "name": "Cheese",
+    "price": 45.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Grains",
+    "name": "Rice",
+    "price": 50.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Oil",
+    "name": "Coconut Oil",
+    "price": 75.0,
+    "location": "Houston,Texas"
+  },
+ {
+    "category": "Fruits",
+    "name": "Banana",
+    "price": 36.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Fruits",
+    "name": "Apple",
+    "price": 65.0,
+    "location": "Houston,Texas"
+  },
+  {
+    "category": "Drinks",
+    "name": "Sprite",
+    "price": 15.0,
+    "location": "Houston,Texas"
+  }
+]
+}
