@@ -28,4 +28,3 @@ for i in range(len(all_items)):
 # Do not forget to save (commit) and close the database connection
 connection.commit()
 connection.close()
-
