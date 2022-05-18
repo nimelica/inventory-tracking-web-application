@@ -8,7 +8,7 @@ A CRUD Application for inventory tracking
 * Delete
 
 ## Additional Operations
-* When deleting, allow deletion comments and undeletion
+* When deleting, allow adding deletion comments and undeletion them
 
 ## Project Structure
 * We used two SQLite databases in this project: **products.db** & **comments.db**
@@ -24,8 +24,8 @@ A CRUD Application for inventory tracking
 * _def view_item_names_: view all the item names in the products.db
 
 **Also some extra method:**
-* _def deletion_message_: allow user to add and delete comments - comments are saved in _comments.db_
-* _def delete_comment_: allow user to uncomment an existing comment
+* _def add_comment_: allow user to add comments - comments are saved in _comments.db_
+* _def uncomment_: allow user to uncomment an existing comment
 * _def view_all_items_: view all items in detailed version
 
 ## Project Usage
