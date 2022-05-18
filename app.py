@@ -115,7 +115,6 @@ class Inventory_Manager:
             return e
         return result
 
-
 # test the program
 def main():
    im = Inventory_Manager()
@@ -125,7 +124,6 @@ def main():
    # im.delete_item('Nerds')
    # im.view_item_names()
    im.deletion_message()
-   
 
 
 if __name__ == "__main__":
