@@ -1,4 +1,4 @@
-# Shopify-inventory-tracking-CRUD-Application
+Inventory-Tracking-CRUD-Operations
 A CRUD Application for inventory tracking 
 
 ## Operations
